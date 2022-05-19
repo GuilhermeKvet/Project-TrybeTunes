@@ -1,29 +1,33 @@
-import React, { useState, useEffect } from "react";
-import { getUser } from "../services/userAPI";
-import { Link } from "react-router-dom";
-import Loading from "../pages/Loading";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { getUser } from '../services/userAPI';
+import Loading from '../pages/Loading';
 
 function Header() {
   const user = {
-    name: "",
+    name: '',
     loading: false,
   };
 
   const [userName, setUserName] = useState(user);
 
-  useEffect(async () => {
-    setUserName((prevState) => ({ ...prevState, loading: true }));
-    const userInfo = await getUser();
-    setUserName((prevState) => ({ ...prevState, name: userInfo.name }));
-    setUserName((prevState) => ({ ...prevState, loading: false }));
+  useEffect(() => {
+    const fetchData = async () => {
+      setUserName((prevState) => ({ ...prevState, loading: true }));
+      const userInfo = await getUser();
+      setUserName((prevState) => ({ ...prevState, name: userInfo.name }));
+      setUserName((prevState) => ({ ...prevState, loading: false }));
+    };
+    return fetchData();
   }, []);
 
   return (
     <header data-testid="header-component">
+      <h1>TrybeTunes</h1>
       {userName.loading ? (
         <Loading />
       ) : (
-        <h2 data-testid="header-user-name">{userName.name}</h2>
+        <h4 data-testid="header-user-name">{userName.name}</h4>
       )}
       <nav>
         <Link data-testid="link-to-search" to="/search">
