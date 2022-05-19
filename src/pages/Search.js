@@ -77,6 +77,7 @@ function Search() {
             <>
               <h3>
                 Resultado de álbuns de:
+                { ' ' }
                 { artistInfo.artistWanted }
               </h3>
               <div>
@@ -94,11 +95,11 @@ function Search() {
                   </div>
                 ))}
               </div>
+              {artistInfo.albums.length === 0 && 'Nenhum álbum foi encontrado'}
             </>
           )}
         </div>
       )}
-      {artistInfo.albums.length === 0 && 'Nenhum álbum foi encontrado'}
     </div>
   );
 }
