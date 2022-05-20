@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { addSong, removeSong } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 import Loading from './Loading';
 
 function MusicCard({ musics }) {
@@ -11,21 +11,31 @@ function MusicCard({ musics }) {
 
   const [favorited, setFavorited] = useState(state);
 
-  const savingChange = async (music) => {
+  const savingChange = (favoritedList) => {
     setFavorited({
-      favoritedList: [...favorited.favoritedList, music],
+      favoritedList,
       musicFavorited: false,
     });
   };
 
-  const favoritedMusic = async ({ target }) => {
+  const favoritedMusic = ({ target }) => {
     const { checked, value } = target;
     const music = musics.find((item) => item.trackId === parseInt(value, 10));
     const update = checked ? addSong : removeSong;
     setFavorited({ favoritedList: [], musicFavorited: true });
-    await update(music);
-    await savingChange(music);
+    update(music).then(() => getFavoriteSongs())
+      .then((favoritedList) => savingChange(favoritedList));
   };
+
+  useEffect(() => {
+    const getFavoritedMusics = () => {
+      getFavoriteSongs().then((favoritedList) => setFavorited({
+        favoritedList,
+        musicFavorited: false,
+      }));
+    };
+    return getFavoritedMusics;
+  }, []);
 
   return (
     <div>
