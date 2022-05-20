@@ -34,7 +34,7 @@ function MusicCard({ musics }) {
         musicFavorited: false,
       }));
     };
-    return getFavoritedMusics;
+    return getFavoritedMusics();
   }, []);
 
   return (
