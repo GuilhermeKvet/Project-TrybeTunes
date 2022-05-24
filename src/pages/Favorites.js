@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getFavoriteSongs } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import MusicCard from '../components/MusicCard';
@@ -12,12 +12,27 @@ function Favorites() {
 
   const [favorite, setFavorite] = useState(state);
 
+  const setMusicFav = (favoritesList) => {
+    setFavorite({
+      favoritesList,
+      musicFavorited: false,
+    });
+  };
+
+  const favoriteChange = ({ target }) => {
+    const { checked, value } = target;
+    const musicFav = favorite.favoritesList.find(
+      (music) => music.trackId === parseInt(value, 10),
+    );
+    const update = checked ? addSong : removeSong;
+    setFavorite((prevState) => ({ ...prevState, musicFavorited: true }));
+    update(musicFav).then(() => getFavoriteSongs())
+      .then((favorites) => setMusicFav(favorites));
+  };
+
   useEffect(() => {
-    const getFavoritedMusics = () => {
-      getFavoriteSongs().then((favoritesList) => setFavorite({
-        favoritesList,
-        musicFavorited: false,
-      }));
+    const getFavoritedMusics = async () => {
+      getFavoriteSongs().then((favoritesList) => setMusicFav(favoritesList));
     };
     return getFavoritedMusics();
   }, []);
@@ -25,13 +40,26 @@ function Favorites() {
   return (
     <div data-testid="page-favorites">
       <Header />
-      <div>
-        {favorite.musicFavorited ? (
-          <Loading />
-        ) : (
-          <MusicCard musics={ favorite.favoritesList } />
-        )}
-      </div>
+      {favorite.musicFavorited ? (
+        <Loading />
+      ) : (
+        <div>
+          {favorite.favoritesList.length > 0 ? (
+            <div>
+              {favorite.favoritesList.map((music, index) => (
+                <MusicCard
+                  key={ index }
+                  music={ music }
+                  favorites={ favorite.favoritesList }
+                  change={ favoriteChange }
+                />
+              ))}
+            </div>
+          ) : (
+            <p>Nenhuma música adicionada aos favoritos no momento!</p>
+          )}
+        </div>
+      )}
     </div>
   );
 }
