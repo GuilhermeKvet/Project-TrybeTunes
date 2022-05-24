@@ -46,14 +46,11 @@ function Favorites() {
         <div>
           {favorite.favoritesList.length > 0 ? (
             <div>
-              {favorite.favoritesList.map((music, index) => (
-                <MusicCard
-                  key={ index }
-                  music={ music }
-                  favorites={ favorite.favoritesList }
-                  change={ favoriteChange }
-                />
-              ))}
+              <MusicCard
+                musics={ favorite.favoritesList }
+                favorites={ favorite.favoritesList }
+                change={ favoriteChange }
+              />
             </div>
           ) : (
             <p>Nenhuma música adicionada aos favoritos no momento!</p>

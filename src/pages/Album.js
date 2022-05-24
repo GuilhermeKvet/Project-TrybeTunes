@@ -6,11 +6,7 @@ import MusicCard from '../components/MusicCard';
 import getMusics from '../services/musicsAPI';
 import Loading from '../components/Loading';
 
-function Album({
-  match: {
-    params: { id },
-  },
-}) {
+function Album({ match: { params: { id } } }) {
   const state = {
     musics: [],
     album: {},
@@ -29,11 +25,11 @@ function Album({
     }));
   };
 
-  const setMusics = (album, musicList) => {
+  const setMusics = (getMusicsOfAlbum, musicList) => {
     setAlbumMusics((prevState) => ({
       ...prevState,
       musics: musicList,
-      album,
+      album: getMusicsOfAlbum[0],
       musicsReturn: false,
     }));
   };
@@ -53,13 +49,12 @@ function Album({
   useEffect(() => {
     const getAlbum = async () => {
       const getMusicsOfAlbum = await getMusics(id);
-      const album = getMusicsOfAlbum[0];
       const musicList = getMusicsOfAlbum.filter(
         (music) => music.kind === 'song',
       );
       getFavoriteSongs().then((favoritedList) => setAlbumMusics((prevState) => (
         { ...prevState, favoritedList, musicFavorited: false })));
-      setMusics(album, musicList);
+      setMusics(getMusicsOfAlbum, musicList);
     };
     return getAlbum();
   }, [id]);
@@ -89,19 +84,16 @@ function Album({
               ) }
             </div>
             <div>
-              {albumMusics.musics.map((music, index) => (
-                <div key={ index }>
-                  <MusicCard
-                    music={ music }
-                    favorites={ albumMusics.favoritedList }
-                    change={ favoritedMusic }
-                  />
-                </div>
-              )) }
+              <div>
+                <MusicCard
+                  musics={ albumMusics.musics }
+                  favorites={ albumMusics.favoritedList }
+                  change={ favoritedMusic }
+                />
+              </div>
             </div>
           </div>
         )}
-        ;
       </div>
     </div>
   );
