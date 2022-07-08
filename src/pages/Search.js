@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import Loading from '../components/Loading';
+import '../styless/search.css';
 
 function Search() {
   const TWO = 2;
@@ -49,10 +50,11 @@ function Search() {
   return (
     <div data-testid="page-search">
       <Header />
-      <form>
+      <form className="searchForm">
         <label htmlFor="searchArtist">
           <input
             data-testid="search-artist-input"
+            className="searchInput"
             type="text"
             id="searchArtist"
             name="artistInput"
@@ -62,6 +64,7 @@ function Search() {
         </label>
         <button
           data-testid="search-artist-button"
+          className="searchButton"
           type="button"
           disabled={ artistInfo.artistInput.length < TWO }
           onClick={ searchAlbums }
@@ -80,9 +83,12 @@ function Search() {
                 { ' ' }
                 { artistInfo.artistWanted }
               </h3>
-              <div>
+              <div className="albumList">
                 {artistInfo.albums.map((album) => (
-                  <div key={ album.collectionId }>
+                  <div 
+                    key={ album.collectionId }
+                    className="cardAlbum"
+                  >
                     <img src={ album.artworkUrl100 } alt={ album.collectionName } />
                     <h3>{ album.collectionName }</h3>
                     <p>{ album.artistName }</p>

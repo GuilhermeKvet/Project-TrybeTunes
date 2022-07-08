@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { createUser } from '../services/userAPI';
 import Loading from '../components/Loading';
+import '../styless/login.css';
 
 function Login({ history }) {
   const login = {
@@ -33,10 +34,12 @@ function Login({ history }) {
       { loginForm.loading ? (
         <Loading />
       ) : (
-        <form>
+        <form className="loginContainer">
+          <h1>TrybeTunes</h1>
           <label htmlFor="loginName">
             <input
               type="text"
+              className="inputLogin"
               data-testid="login-name-input"
               name="name"
               value={ loginForm.name }
@@ -46,6 +49,7 @@ function Login({ history }) {
           </label>
           <button
             type="button"
+            className="buttonLogin"
             data-testid="login-submit-button"
             disabled={ handleButtonLogin() }
             onClick={ loginUser }

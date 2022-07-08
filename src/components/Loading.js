@@ -1,8 +1,9 @@
 import React from 'react';
+import '../styless/loading.css';
 
 function loading() {
   return (
-    <span>Carregando...</span>
+    <h1 className="loading">Carregando...</h1>
   );
 }
 

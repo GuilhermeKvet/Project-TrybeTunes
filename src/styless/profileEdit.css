@@ -1,0 +1,43 @@
+.profileEditForm {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.input-label {
+  align-self: center;
+  font-weight: 800;
+}
+
+.edit-input {
+  border: 1px solid black;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 5px 10px;
+}
+
+.edit-input-textarea {
+  border: 1px solid black;
+  border-radius: 10px;
+  height: 100px;
+  margin: 10px;
+  padding: 5px 10px;
+}
+
+.edit-button {
+  align-self: center;
+  background-color: #41197f;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 20px;
+  font-weight: 800;
+  margin-top: 20px;
+  padding: 10px 30px;
+  width: 150px;
+}
+
+.edit-input:focus {
+  box-shadow: 0 0 0 0;
+  outline: 0;
+}

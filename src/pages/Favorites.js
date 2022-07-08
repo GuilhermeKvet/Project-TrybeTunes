@@ -3,6 +3,7 @@ import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongs
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import MusicCard from '../components/MusicCard';
+import '../styless/favorites.css';
 
 function Favorites() {
   const state = {
@@ -43,7 +44,7 @@ function Favorites() {
       {favorite.musicFavorited ? (
         <Loading />
       ) : (
-        <div>
+        <div className="musicsFavorited">
           {favorite.favoritesList.length > 0 ? (
             <div>
               <MusicCard

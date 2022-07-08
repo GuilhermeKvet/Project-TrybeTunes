@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getUser } from '../services/userAPI';
 import Loading from './Loading';
+import '../styless/header.css';
 
 function Header() {
   const user = {
@@ -22,24 +23,29 @@ function Header() {
   }, []);
 
   return (
-    <header data-testid="header-component">
+    <header data-testid="header-component" className="header">
       <h1>TrybeTunes</h1>
       {userName.loading ? (
         <Loading />
       ) : (
-        <h4 data-testid="header-user-name">{userName.name}</h4>
+        <div className="headerContent">
+          <h4
+            data-testid="header-user-name"
+            className="user-name"
+          >{userName.name}</h4>
+          <nav className="links">
+            <Link data-testid="link-to-search" to="/search">
+              Pesquisar
+            </Link>
+            <Link data-testid="link-to-favorites" to="/favorites">
+              Favoritas
+            </Link>
+            <Link data-testid="link-to-profile" to="/profile">
+              Perfil
+            </Link>
+          </nav>
+        </div>
       )}
-      <nav>
-        <Link data-testid="link-to-search" to="/search">
-          Pesquisar
-        </Link>
-        <Link data-testid="link-to-favorites" to="/favorites">
-          Favoritas
-        </Link>
-        <Link data-testid="link-to-profile" to="/profile">
-          Perfil
-        </Link>
-      </nav>
     </header>
   );
 }

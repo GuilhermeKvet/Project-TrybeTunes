@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import { getUser, updateUser } from '../services/userAPI';
 import Loading from '../components/Loading';
+import '../styless/profileEdit.css';
 
 function ProfileEdit({ history }) {
   const state = {
@@ -58,11 +59,12 @@ function ProfileEdit({ history }) {
       {profileEditUser.loading ? (
         <Loading />
       ) : (
-        <form>
-          <label htmlFor="inputName">
+        <form className="profileEditForm">
+          <label htmlFor="inputName" className="input-label">
             Nome
             <input
               data-testid="edit-input-name"
+              className="edit-input"
               name="name"
               value={ profileEditUser.info.name }
               type="text"
@@ -71,10 +73,11 @@ function ProfileEdit({ history }) {
             />
           </label>
           <br />
-          <label htmlFor="inputEmail">
+          <label htmlFor="inputEmail" className="input-label">
             Email
             <input
               data-testid="edit-input-email"
+              className="edit-input"
               name="email"
               value={ profileEditUser.info.email }
               type="email"
@@ -83,10 +86,11 @@ function ProfileEdit({ history }) {
             />
           </label>
           <br />
-          <label htmlFor="inputDescription">
+          <label htmlFor="inputDescription" className="input-label">
             Descrição
-            <input
+            <textarea
               data-testid="edit-input-description"
+              className="edit-input-textarea"
               name="description"
               value={ profileEditUser.info.description }
               type="text"
@@ -95,10 +99,11 @@ function ProfileEdit({ history }) {
             />
           </label>
           <br />
-          <label htmlFor="inputUrl">
+          <label htmlFor="inputUrl" className="input-label">
             URL
             <input
               data-testid="edit-input-image"
+              className="edit-input"
               name="image"
               value={ profileEditUser.info.image }
               type="text"
@@ -108,6 +113,7 @@ function ProfileEdit({ history }) {
           </label>
           <button
             data-testid="edit-button-save"
+            className="edit-button"
             type="submit"
             disabled={ savedButton }
             onClick={ updateInfoUser }

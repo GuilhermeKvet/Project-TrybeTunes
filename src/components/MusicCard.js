@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../styless/musicCard.css';
 
 function MusicCard({ musics, change, favorites }) {
   return (
-    <div>
+    <div className="music-card">
       {musics.map((music) => (
         <div key={ music.trackId }>
-          <div>
+          <div className="track-name">
             <p>{ music.trackName }</p>
           </div>
-          <div>
+          <div className="player-and-checker">
             <audio
               data-testid="audio-component"
               src={ music.previewUrl }
@@ -20,7 +21,10 @@ function MusicCard({ musics, change, favorites }) {
               { ' ' }
               <code>audio</code>
             </audio>
-            <label htmlFor="favorite">
+            <label
+              htmlFor="favorite"
+              className="checker"
+            >
               Favorita
               <input
                 data-testid={ `checkbox-music-${music.trackId}` }

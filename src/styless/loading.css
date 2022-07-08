@@ -1,0 +1,6 @@
+.loading {
+  align-items: center;
+  color: #036b52;
+  display: flex;
+  justify-content: center;
+}

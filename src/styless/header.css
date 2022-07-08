@@ -1,0 +1,33 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(27, 51, 13);
+  color: white;
+}
+
+.headerContent {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.links {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+}
+
+a {
+  text-decoration: none;
+  padding: 10px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 800;
+  color: black;
+  background-color: white;
+  width: 30%;
+  border: 1px solid gray;
+}

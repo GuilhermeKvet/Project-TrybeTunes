@@ -5,6 +5,7 @@ import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongs
 import MusicCard from '../components/MusicCard';
 import getMusics from '../services/musicsAPI';
 import Loading from '../components/Loading';
+import '../styless/album.css';
 
 function Album({ match: { params: { id } } }) {
   const state = {
@@ -66,10 +67,10 @@ function Album({ match: { params: { id } } }) {
         { albumMusics.musicsReturn || albumMusics.musicFavorited ? (
           <Loading />
         ) : (
-          <div>
+          <div className="albumContainer">
             <div>
               { albumMusics.album && (
-                <div>
+                <div className="albumInfo">
                   <img
                     src={ albumMusics.album.artworkUrl100 }
                     alt={ albumMusics.album.collectionName }
@@ -83,14 +84,12 @@ function Album({ match: { params: { id } } }) {
                 </div>
               ) }
             </div>
-            <div>
-              <div>
-                <MusicCard
-                  musics={ albumMusics.musics }
-                  favorites={ albumMusics.favoritedList }
-                  change={ favoritedMusic }
-                />
-              </div>
+            <div className="musics">
+              <MusicCard
+                musics={ albumMusics.musics }
+                favorites={ albumMusics.favoritedList }
+                change={ favoritedMusic }
+              />
             </div>
           </div>
         )}
